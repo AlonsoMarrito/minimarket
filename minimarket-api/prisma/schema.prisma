@@ -7,27 +7,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Employee {
+model employeed {
   id       Int    @id @default(autoincrement())
   type     String @db.VarChar
   password String @db.VarChar
-
-  @@map("employeed")
+  sale     sale[]
 }
 
-model Product {
+model products {
   id   Int    @id @default(autoincrement())
   name String @db.VarChar
   cost Float
-
-  @@map("products")
 }
 
-model Sale {
-  id       Int    @id @default(autoincrement())
-  products String @db.VarChar
-  prices   String @db.VarChar
-  total    Float
-
-  @@map("sale")
+model sale {
+  id        Int       @id @default(autoincrement())
+  products  String    @db.VarChar
+  prices    String    @db.VarChar
+  total     Float
+  saler     Int
+  employeed employeed @relation(fields: [saler], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
